@@ -1,0 +1,17 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: builder
+    container_name: node-app-dev
+    volumes:
+      - .:/app
+      - /app/node_modules  # Volume para preservar node_modules
+    ports:
+      - "5000:5000"
+      - "9229:9229"  # Para debugging con Node.js
+    environment:
+      - NODE_ENV=development
+    command: npm run start
+    restart: unless-stopped
